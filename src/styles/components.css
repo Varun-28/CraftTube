@@ -1,0 +1,7 @@
+@import url("../App.css");
+
+@media only screen and (min-width: 800px) {
+    .page-not-found{
+        width: 40%;
+    }
+}

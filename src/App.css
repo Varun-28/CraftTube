@@ -1,0 +1,27 @@
+@import url("./styles/utility.css");
+@import url("./index.css");
+
+:root{
+    /* light theme color */
+    --light-bg-color: #E3FDFD;
+    --light-text-color: #222831;
+
+    /* dark theme color */
+    --dark-text-color: #E3FDFD;
+    --dark-bg-color: #222831;
+
+    /* common colors */
+    --secondary-color: #71C9CE;
+    --shadow-color: #CBF1F5;
+    --white-color: #fff;
+}
+
+.light{
+    color: var(--light-text-color);
+    background-color: var(--light-bg-color);
+}
+
+.dark{
+    color: var(--dark-text-color);
+    background-color: var(--dark-bg-color);
+}

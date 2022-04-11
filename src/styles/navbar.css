@@ -1,0 +1,34 @@
+@import url("../App.css");
+
+.navbar{
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.crafttube-logo{
+    width: 16rem;
+}
+
+.btn-theme-change{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.btn-theme-change:hover{
+    animation: swing 0.5s ease-in-out;
+}
+
+@keyframes swing {
+    0%{
+        transform: rotate(0deg);
+    }   
+    50%{
+        transform: rotate(-30deg);
+    }
+    100%{
+        transform: rotate(0deg);
+    }
+}
