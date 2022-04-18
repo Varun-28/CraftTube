@@ -1,12 +1,36 @@
 @import url("../App.css");
 
 .navbar{
-    display: flex;
+    display: grid;
+    grid-template-areas: 
+    "logo links" 
+    "search search";
     align-items: center;
     padding: 0 2rem;
 }
 
 .crafttube-logo{
+    grid-area: logo;
+    justify-self: start;
+}
+
+.search-field{
+    grid-area: search;
+    justify-self: center;
+}
+
+.search-input{
+    padding: 2px 4px;
+    border: solid 2px var(--light-text-color);
+    border-radius: 5px;
+}
+
+.nav-links{
+    grid-area: links;
+    justify-self: end;
+}
+
+.crafttube-logo-img{
     width: 16rem;
 }
 
@@ -14,7 +38,6 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
-    margin-left: auto;
 }
 
 .btn-theme-change:hover{
@@ -30,5 +53,11 @@
     }
     100%{
         transform: rotate(0deg);
+    }
+}
+
+@media only screen and (min-width: 800px) {
+    .navbar{
+        grid-template-areas: "logo search links";
     }
 }
