@@ -25,20 +25,14 @@ function Navbar() {
       <div className="nav-links">
         <Link to="/login" className="mx-4">
           <button
-            className="btn btn-primary"
-            onClick={themeHandler}
-            style={{
-              color: theme.mode.bgColor,
-              backgroundColor: theme.mode.textColor,
-            }}
+            className={`btn btn-primary ${theme.isLight ? "dark" : "light"}`}
           >
             Login
           </button>
         </Link>
         <button
-          className="btn-theme-change"
+          className={`btn-theme-change ${theme.isLight ? "light" : "dark"}`}
           onClick={themeHandler}
-          style={{ color: theme.mode.textColor }}
         >
           <FontAwesomeIcon icon={theme.isLight ? faSun : faMoon} />
         </button>
