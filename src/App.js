@@ -1,7 +1,12 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Mockman from "mockman-js";
-import { Navbar, Footer, NotFound } from "./components/Components";
+import {
+  Navbar,
+  Footer,
+  NotFound,
+  RequiresAuth,
+} from "./components/Components";
 import {
   Login,
   Signup,
@@ -10,7 +15,7 @@ import {
   Playlist,
   VideoListing,
   Profile,
-  WatchLater
+  WatchLater,
 } from "./pages/Pages.jsx";
 import { useTheme } from "./utils/theme-context.jsx";
 
@@ -29,13 +34,41 @@ function App() {
       <div className="main grow">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/playlist" element={<Playlist />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/history" element={<History />} />
           <Route path="/videolisting" element={<VideoListing />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/watchlater" element={<WatchLater />} />
+          <Route
+            path="/playlist"
+            element={
+              <RequiresAuth>
+                <Playlist />
+              </RequiresAuth>
+            }
+          />
+          <Route
+            path="/history"
+            element={
+              <RequiresAuth>
+                <History />
+              </RequiresAuth>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <RequiresAuth>
+                <Profile />
+              </RequiresAuth>
+            }
+          />
+          <Route
+            path="/watchlater"
+            element={
+              <RequiresAuth>
+                <WatchLater />
+              </RequiresAuth>
+            }
+          />
           <Route path="*" element={<NotFound />} />
 
           <Route path="/mock" element={<Mockman />} />

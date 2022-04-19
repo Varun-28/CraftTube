@@ -1,1 +1,40 @@
 @import url("../../App.css");
+
+.link{
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+.login-signup-container{
+    text-align: center;
+}
+
+.input-group{
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+.input-group input{
+    width: 100%;
+    margin: 5px auto;
+    padding: 4px;
+    border: solid 2px;
+    border-radius: 5px;
+}
+
+.password-label{
+    position: relative;
+}
+
+.eye-btn{
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.error-text{
+    color: #E83A14;
+}
