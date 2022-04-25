@@ -6,7 +6,9 @@ function Footer() {
   const { theme } = useTheme();
 
   return (
-    <footer className="crafttube-footer p-4">
+    <footer className="crafttube-footer p-4"
+      style={{color: theme.mode.bgColor, backgroundColor: theme.mode.textColor}}
+    >
       <p>Made with 💖 by Varun Verma</p>
       <div className="social-links flex justify-center items-center mt-4 gap-x-4">
         <a
@@ -16,7 +18,7 @@ function Footer() {
         >
           <i
             className="fab fa-twitter-square"
-            style={{ color: theme.mode.textColor }}
+            style={{ color: theme.mode.bgColor }}
             title="Twitter"
           ></i>
         </a>
@@ -27,7 +29,7 @@ function Footer() {
         >
           <i
             className="fab fa-github-square"
-            style={{ color: theme.mode.textColor }}
+            style={{ color: theme.mode.bgColor }}
             title="Github"
           ></i>
         </a>
@@ -38,7 +40,7 @@ function Footer() {
         >
           <i
             className="fab fa-linkedin"
-            style={{ color: theme.mode.textColor }}
+            style={{ color: theme.mode.bgColor }}
             title="LinkedIn"
           ></i>
         </a>

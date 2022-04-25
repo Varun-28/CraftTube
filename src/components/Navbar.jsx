@@ -5,9 +5,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 import { useTheme } from "../utils/theme-context";
 import { Link } from "react-router-dom";
+import { useAuthFunctions } from "../utils/useAuthFunctions.js";
 
 function Navbar() {
   const { theme, themeHandler } = useTheme();
+  const token = localStorage.getItem("userToken");
+  const { logout } = useAuthFunctions();
 
   return (
     <nav className="navbar">
@@ -23,13 +26,23 @@ function Navbar() {
         />
       </div>
       <div className="nav-links">
-        <Link to="/login" className="mx-4">
+        {!token ? (
+          <Link to="/login" className="mx-4">
           <button
             className={`btn btn-primary ${theme.isLight ? "dark" : "light"}`}
           >
             Login
           </button>
         </Link>
+        ) : (
+          <button
+            onClick={logout}
+            className={`btn btn-primary ${theme.isLight ? "dark" : "light"}`}
+          >
+            Logout
+          </button>
+        ) }
+
         <button
           className={`btn-theme-change ${theme.isLight ? "light" : "dark"}`}
           onClick={themeHandler}
