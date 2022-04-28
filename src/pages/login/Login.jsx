@@ -1,5 +1,6 @@
 import { React, useState } from "react";
 import "./login.css";
+import { Loading } from "../../components/Components";
 import { useTheme } from "../../utils/theme-context";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../utils/auth-context";
@@ -8,12 +9,13 @@ import { useAuthFunctions } from "../../utils/useAuthFunctions.js";
 function Login() {
   const { theme } = useTheme();
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { authState, authDispatch } = useAuth();
   const { login } = useAuthFunctions();
 
   const loginHandler = (e) => {
     e.preventDefault();
-    login();
+    login(setLoading);
   };
 
   return (
@@ -86,6 +88,7 @@ function Login() {
           </Link>
         </p>
       </div>
+      {loading && <Loading />}
     </div>
   );
 }

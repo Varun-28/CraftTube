@@ -6,6 +6,9 @@ import { makeServer } from "./server";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "./utils/theme-context.jsx";
 import { AuthProvider } from "./utils/auth-context";
+import { Provider as AlertProvider } from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
+import { options } from "./utils/alertOptions";
 
 // Call make Server
 makeServer();
@@ -18,9 +21,11 @@ root.render(
     <BrowserRouter>
       <ThemeProvider>
         <AuthProvider>
-          <App />
+          <AlertProvider template={AlertTemplate} {...options}>
+            <App />
+          </AlertProvider>
         </AuthProvider>
       </ThemeProvider>
     </BrowserRouter>
-  </React.StrictMode>,
+  </React.StrictMode>
 );
