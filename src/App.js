@@ -6,6 +6,7 @@ import {
   Footer,
   NotFound,
   RequiresAuth,
+  PrivateAuth,
 } from "./components/Components";
 import {
   Login,
@@ -34,8 +35,22 @@ function App() {
       <div className="main grow">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route
+            path="/login"
+            element={
+              <PrivateAuth>
+                <Login />
+              </PrivateAuth>
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <PrivateAuth>
+                <Signup />
+              </PrivateAuth>
+            }
+          />
           <Route path="/videolisting" element={<VideoListing />} />
           <Route
             path="/playlist"

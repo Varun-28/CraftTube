@@ -4,11 +4,13 @@ import { useTheme } from "../../utils/theme-context";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../utils/auth-context";
 import { useAuthFunctions } from "../../utils/useAuthFunctions.js";
+import { Loading } from "../../components/Components";
 
 function Signup() {
   const confirm_password = useRef();
   const { theme } = useTheme();
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState(false);
   const { authState, authDispatch } = useAuth();
   const { signup } = useAuthFunctions();
@@ -18,7 +20,7 @@ function Signup() {
     if (confirm_password.current.value !== authState.password) {
       setErrorMsg(true);
     } else {
-      signup();
+      signup(setLoading);
     }
   };
 
@@ -118,6 +120,7 @@ function Signup() {
           </Link>
         </p>
       </div>
+      {loading && <Loading />}
     </div>
   );
 }
