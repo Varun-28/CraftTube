@@ -1,9 +1,9 @@
 import { React, useState, useRef } from "react";
 import "./signup.css";
-import { useTheme } from "../../utils/theme-context";
+import { useTheme } from "../../context/themeContext/theme-context";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../utils/auth-context";
-import { useAuthFunctions } from "../../utils/useAuthFunctions.js";
+import { useAuth } from "../../context/authContext/auth-context.js";
+import { useAuthFunctions } from "../../context/authContext/useAuthFunctions.js";
 import { Loading } from "../../components/Components";
 
 function Signup() {

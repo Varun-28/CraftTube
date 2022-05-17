@@ -3,9 +3,9 @@ import "../styles/navbar.css";
 import logo from "../assets/vl-logo.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
-import { useTheme } from "../utils/theme-context";
+import { useTheme } from "../context/themeContext/theme-context";
 import { Link } from "react-router-dom";
-import { useAuthFunctions } from "../utils/useAuthFunctions.js";
+import { useAuthFunctions } from "../context/authContext/useAuthFunctions.js";
 
 function Navbar() {
   const { theme, themeHandler } = useTheme();

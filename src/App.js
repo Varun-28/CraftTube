@@ -1,13 +1,7 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Mockman from "mockman-js";
-import {
-  Navbar,
-  Footer,
-  NotFound,
-  RequiresAuth,
-  PrivateAuth,
-} from "./components/Components";
+import { Navbar, Footer, NotFound } from "./components/Components";
 import {
   Login,
   Signup,
@@ -18,7 +12,9 @@ import {
   Profile,
   WatchLater,
 } from "./pages/Pages.jsx";
-import { useTheme } from "./utils/theme-context.jsx";
+import { PrivateAuth } from "./utils/PrivateAuth";
+import { RequiresAuth } from "./utils/RequiresAuth";
+import { useTheme } from "./context/themeContext/theme-context.jsx";
 
 function App() {
   const { theme } = useTheme();
