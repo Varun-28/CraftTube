@@ -13,7 +13,7 @@ function Navbar() {
   const { logout } = useAuthFunctions();
 
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${theme.isLight ? "navbar-light" : "navbar-dark"}`}>
       <Link to="/" className="crafttube-logo">
         <img className="crafttube-logo-img" src={logo} alt="crafttube-logo" />
       </Link>

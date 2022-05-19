@@ -11,7 +11,7 @@ function Home() {
           Your one stop destination to learn all types of craft through
           interactive videos.
         </h3>
-        <Link to="/videolisting">
+        <Link to="/video/videolisting">
         <button className="btn btn-primary mt-8 text-md">Explore</button>
         </Link>
       </div>
