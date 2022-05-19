@@ -1,0 +1,51 @@
+@import url("../App.css");
+
+.navigation-bar {
+    position: fixed;
+    width: 5rem;
+    min-height: 100vh;
+    z-index: 1;
+}
+
+.navigation-bar-light{
+    background-color: var(--light-bg-color);
+}
+
+.navigation-bar-dark{
+    background-color: var(--dark-bg-color);
+}
+
+.drawer-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.drawer-list-item {
+    margin: 4px auto;
+}
+
+.drawer-item {
+    padding: 8px 1.2rem;
+    transition: 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.drawer-item:hover {
+    background-color: var(--shadow-color);
+    color: var(--light-text-color);
+}
+
+@media only screen and (max-width: 800px) {
+    .navigation-bar {
+        width: 100%;
+        min-height: 10vh;
+        bottom: 0;
+    }
+
+    .drawer-list {
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+}

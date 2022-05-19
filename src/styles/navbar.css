@@ -7,6 +7,16 @@
     "search search";
     align-items: center;
     padding: 0 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.navbar-light{
+    background-color: var(--light-bg-color);
+}
+
+.navbar-dark{
+    background-color: var(--dark-bg-color);
 }
 
 .crafttube-logo{

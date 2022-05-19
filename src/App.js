@@ -1,7 +1,7 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Mockman from "mockman-js";
-import { Navbar, Footer, NotFound } from "./components/Components";
+import { Navbar, NotFound } from "./components/Components";
 import {
   Login,
   Signup,
@@ -11,6 +11,9 @@ import {
   VideoListing,
   Profile,
   WatchLater,
+  LikedVideos,
+  Video,
+  SingleVideo,
 } from "./pages/Pages.jsx";
 import { PrivateAuth } from "./utils/PrivateAuth";
 import { RequiresAuth } from "./utils/RequiresAuth";
@@ -47,46 +50,54 @@ function App() {
               </PrivateAuth>
             }
           />
-          <Route path="/videolisting" element={<VideoListing />} />
-          <Route
-            path="/playlist"
-            element={
-              <RequiresAuth>
-                <Playlist />
-              </RequiresAuth>
-            }
-          />
-          <Route
-            path="/history"
-            element={
-              <RequiresAuth>
-                <History />
-              </RequiresAuth>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <RequiresAuth>
-                <Profile />
-              </RequiresAuth>
-            }
-          />
-          <Route
-            path="/watchlater"
-            element={
-              <RequiresAuth>
-                <WatchLater />
-              </RequiresAuth>
-            }
-          />
+          <Route path="/video" element={<Video />}>
+            <Route index path="videolisting" element={<VideoListing />} />
+            <Route path="videolisting/:videoId" element={<SingleVideo />} />
+            <Route
+              path="watchlater"
+              element={
+                <RequiresAuth>
+                  <WatchLater />
+                </RequiresAuth>
+              }
+            />
+            <Route
+              path="liked"
+              element={
+                <RequiresAuth>
+                  <LikedVideos />
+                </RequiresAuth>
+              }
+            />
+            <Route
+              path="playlist"
+              element={
+                <RequiresAuth>
+                  <Playlist />
+                </RequiresAuth>
+              }
+            />
+            <Route
+              path="history"
+              element={
+                <RequiresAuth>
+                  <History />
+                </RequiresAuth>
+              }
+            />
+            <Route
+              path="profile"
+              element={
+                <RequiresAuth>
+                  <Profile />
+                </RequiresAuth>
+              }
+            />
+          </Route>
           <Route path="*" element={<NotFound />} />
 
           <Route path="/mock" element={<Mockman />} />
         </Routes>
-      </div>
-      <div className="footer">
-        <Footer />
       </div>
     </div>
   );
