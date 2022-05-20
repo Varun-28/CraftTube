@@ -1,15 +1,44 @@
 import { React, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useVideo } from "../../context/videoContext/video-context";
 import { useTheme } from "../../context/themeContext/theme-context";
 import { Loading } from "../../components/Components";
 import "./singleVideo.css";
 import axios from "axios";
+import { addToHistory } from "../../context/userDataContext/history-serverCalls";
+import { useUserData } from "../../context/userDataContext/userData-context";
+import {
+  addToWatchLater,
+  removeFromWatchLater,
+} from "../../context/userDataContext/watchLater-serverCalls.js";
+import {
+  addToLikes,
+  removeFromLikes,
+} from "../../context/userDataContext/likes-serverCalls.js";
 
 function SingleVideo() {
   const { videoId } = useParams();
+  const navigate = useNavigate();
   const { theme } = useTheme();
+  const {
+    dataState: { watchlater, likes },
+    dataDispatch,
+  } = useUserData();
+  const token = localStorage.getItem("userToken");
   const [currentVideo, setCurrentVideo] = useState({});
+
+  const { filteredVideos } = useVideo();
+  const relatedVideos = filteredVideos.filter(
+    (video) =>
+      video.categoryName === currentVideo.categoryName &&
+      video._id !== currentVideo._id
+  );
+  const isLiked = () => {
+    return likes.some((video) => video._id === videoId);
+  };
+  const inWatchLater = () => {
+    return watchlater.some((video) => video._id === videoId);
+  };
 
   useEffect(() => {
     (async () => {
@@ -24,12 +53,14 @@ function SingleVideo() {
     })();
   }, [videoId]);
 
-  const { filteredVideos } = useVideo();
-  const relatedVideos = filteredVideos.filter(
-    (video) =>
-      video.categoryName === currentVideo.categoryName &&
-      video._id !== currentVideo._id
-  );
+  useEffect(() => {
+    token &&
+      addToHistory(
+        filteredVideos.find((video) => video._id === videoId),
+        dataDispatch
+      );
+  }, [filteredVideos, dataDispatch, token, videoId]);
+
   return (
     <div className="single-video-page">
       <div className="single-video-container">
@@ -59,8 +90,40 @@ function SingleVideo() {
               <p>{currentVideo.creator}</p>
             </div>
             <div>
-              <button className="btn btn-video">Like</button>
-              <button className="btn btn-video">Watch Later</button>
+              <button
+                className="btn btn-video"
+                onClick={() => {
+                  if (token) {
+                    !isLiked()
+                      ? addToLikes(currentVideo, dataDispatch)
+                      : removeFromLikes(currentVideo._id, dataDispatch);
+                  } else {
+                    navigate("/login");
+                  }
+                }}
+              >
+                <i
+                  className={`fa-solid ${
+                    isLiked() ? "fa-thumbs-down" : "fa-thumbs-up"
+                  }`}
+                ></i>
+                Like
+              </button>
+              <button
+                className="btn btn-video"
+                onClick={() => {
+                  if (token) {
+                    !inWatchLater()
+                      ? addToWatchLater(currentVideo, dataDispatch)
+                      : removeFromWatchLater(currentVideo._id, dataDispatch);
+                  } else {
+                    navigate("/login");
+                  }
+                }}
+              >
+                {inWatchLater() && <i className="fa-solid fa-trash"></i>}
+                Watch Later
+              </button>
               <button className="btn btn-video">Playlist</button>
             </div>
           </div>

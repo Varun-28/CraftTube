@@ -25,3 +25,8 @@
     color: var(--dark-text-color);
     background-color: var(--dark-bg-color);
 }
+
+.btn-primary{
+    background-color: var(--secondary-color);
+    color: var(--light-text-color);
+}

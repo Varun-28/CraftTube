@@ -38,3 +38,8 @@
         transform: rotate(360deg);
     }
 }
+
+.btn-empty{
+    background-color: var(--secondary-color);
+    color: var(--dark-bg-color);
+}
