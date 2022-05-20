@@ -26,11 +26,7 @@ function useAuthFunctions() {
           payload: { encodedToken },
         });
         authDispatch({ type: "RESET-FORM" });
-        if(location?.state?.from?.pathname === undefined){
-          navigate("/");
-        }else{
-          navigate(location?.state?.from?.pathname);
-        }
+        navigate(location?.state?.from?.pathname || "/");
       } else if (status === 401) {
         authDispatch({ type: "ERROR", payload: "Invalid Credentials." });
         setTimeout(() => authDispatch({ type: "ERROR", payload: "" }), 4000);
@@ -72,11 +68,7 @@ function useAuthFunctions() {
           payload: { encodedToken },
         });
         authDispatch({ type: "RESET-FORM" });
-        if(location?.state?.from?.pathname === undefined){
-          navigate("/");
-        }else{
-          navigate(location?.state?.from?.pathname);
-        }
+        navigate(location?.state?.from?.pathname || "/");
       } else {
         authDispatch({ type: "ERROR", payload: "Something Went Wrong." });
         setTimeout(() => authDispatch({ type: "ERROR", payload: "" }), 4000);
