@@ -11,6 +11,7 @@ import AlertTemplate from "react-alert-template-basic";
 import { options } from "./utils/alertOptions";
 import { VideoProvider } from "./context/videoContext/video-context";
 import { UserDataProvider } from "./context/userDataContext/userData-context";
+import { PlaylistProvider } from "./context/playlistContext/playlist-context";
 
 // Call make Server
 makeServer();
@@ -25,9 +26,11 @@ root.render(
         <AuthProvider>
           <VideoProvider>
             <UserDataProvider>
-              <AlertProvider template={AlertTemplate} {...options}>
-                <App />
-              </AlertProvider>
+              <PlaylistProvider>
+                <AlertProvider template={AlertTemplate} {...options}>
+                  <App />
+                </AlertProvider>
+              </PlaylistProvider>
             </UserDataProvider>
           </VideoProvider>
         </AuthProvider>

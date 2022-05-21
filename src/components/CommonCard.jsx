@@ -5,11 +5,26 @@ import { removeFromHistory } from "../context/userDataContext/history-serverCall
 import { removeFromLikes } from "../context/userDataContext/likes-serverCalls";
 import { removeFromWatchLater } from "../context/userDataContext/watchLater-serverCalls";
 import { useUserData } from "../context/userDataContext/userData-context";
+import { usePlaylistServerCall } from "../context/playlistContext/usePlaylistServerCall";
 
-function CommonCard({ video, type }) {
+function CommonCard({ video, type, playlistId }) {
   const { _id, title, creator, creatorLogo, thumbnail } = video;
   const { theme } = useTheme();
   const { dataDispatch } = useUserData();
+  const { deleteFromPlaylist } = usePlaylistServerCall();
+
+  const removeHandler = () => {
+    if (type === "history") {
+      removeFromHistory(_id, dataDispatch);
+    } else if (type === "like") {
+      removeFromLikes(_id, dataDispatch);
+    } else if (type === "watchlater") {
+      removeFromWatchLater(_id, dataDispatch);
+    } else if (type === "playlist") {
+      deleteFromPlaylist(playlistId, _id);
+    }
+  };
+
   return (
     <div
       className={`card card-vertical flex flex-col justify-between ${
@@ -37,18 +52,7 @@ function CommonCard({ video, type }) {
         </div>
       </div>
       <div className="card-buttons">
-        <button
-          className="card-btn-icon"
-          onClick={() => {
-            if (type === "history") {
-              removeFromHistory(_id, dataDispatch);
-            } else if (type === "like") {
-              removeFromLikes(_id, dataDispatch);
-            } else if (type === "watchlater") {
-              removeFromWatchLater(_id, dataDispatch);
-            }
-          }}
-        >
+        <button className="card-btn-icon" onClick={removeHandler}>
           <i className="fa-solid fa-trash"></i>
         </button>
       </div>

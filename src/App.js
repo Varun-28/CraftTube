@@ -14,6 +14,7 @@ import {
   LikedVideos,
   Video,
   SingleVideo,
+  PlaylistDetail,
 } from "./pages/Pages.jsx";
 import { PrivateAuth } from "./utils/PrivateAuth";
 import { RequiresAuth } from "./utils/RequiresAuth";
@@ -74,6 +75,14 @@ function App() {
               element={
                 <RequiresAuth>
                   <Playlist />
+                </RequiresAuth>
+              }
+            />
+            <Route
+              path="playlist/:playlistId"
+              element={
+                <RequiresAuth>
+                  <PlaylistDetail />
                 </RequiresAuth>
               }
             />

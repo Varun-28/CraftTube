@@ -15,6 +15,8 @@ import {
   addToLikes,
   removeFromLikes,
 } from "../../context/userDataContext/likes-serverCalls.js";
+import { usePlaylist } from "../../context/playlistContext/playlist-context";
+import { usePlaylistServerCall } from "../../context/playlistContext/usePlaylistServerCall";
 
 function SingleVideo() {
   const { videoId } = useParams();
@@ -26,6 +28,8 @@ function SingleVideo() {
   } = useUserData();
   const token = localStorage.getItem("userToken");
   const [currentVideo, setCurrentVideo] = useState({});
+  const { setModal } = usePlaylist();
+  const { deleteFromPlaylist } = usePlaylistServerCall();
 
   const { filteredVideos } = useVideo();
   const relatedVideos = filteredVideos.filter(
@@ -60,6 +64,14 @@ function SingleVideo() {
         dataDispatch
       );
   }, [filteredVideos, dataDispatch, token, videoId]);
+
+  const addToPlaylistHandler = () => {
+		if (!token) {
+			navigate("/login");
+		} else {
+			setModal(filteredVideos.find((video) => video._id === videoId));
+		}
+	};
 
   return (
     <div className="single-video-page">
@@ -107,7 +119,6 @@ function SingleVideo() {
                     isLiked() ? "fa-thumbs-down" : "fa-thumbs-up"
                   }`}
                 ></i>
-                Like
               </button>
               <button
                 className="btn btn-video"
@@ -124,7 +135,7 @@ function SingleVideo() {
                 {inWatchLater() && <i className="fa-solid fa-trash"></i>}
                 Watch Later
               </button>
-              <button className="btn btn-video">Playlist</button>
+              <button className="btn btn-video" onClick={() => addToPlaylistHandler()}>Playlist</button>
             </div>
           </div>
           <p className="text-base">{currentVideo.description}</p>
