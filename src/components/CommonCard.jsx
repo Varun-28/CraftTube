@@ -1,15 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "../context/themeContext/theme-context";
+import { removeFromHistory } from "../context/userDataContext/history-serverCalls";
+import { removeFromLikes } from "../context/userDataContext/likes-serverCalls";
+import { removeFromWatchLater } from "../context/userDataContext/watchLater-serverCalls";
+import { useUserData } from "../context/userDataContext/userData-context";
 
-function VideoCards({
-  _id,
-  title,
-  creator,
-  creatorLogo,
-  thumbnail,
-}) {
+function CommonCard({ video, type }) {
+  const { _id, title, creator, creatorLogo, thumbnail } = video;
   const { theme } = useTheme();
+  const { dataDispatch } = useUserData();
   return (
     <div
       className={`card card-vertical flex flex-col justify-between ${
@@ -37,15 +37,23 @@ function VideoCards({
         </div>
       </div>
       <div className="card-buttons">
-        <button className="card-btn-icon">
-          <i className="fas fa-clock"></i>
-        </button>
-        <button className="card-btn-icon">
-          <i className="fas fa-stream"></i>
+        <button
+          className="card-btn-icon"
+          onClick={() => {
+            if (type === "history") {
+              removeFromHistory(_id, dataDispatch);
+            } else if (type === "like") {
+              removeFromLikes(_id, dataDispatch);
+            } else if (type === "watchlater") {
+              removeFromWatchLater(_id, dataDispatch);
+            }
+          }}
+        >
+          <i className="fa-solid fa-trash"></i>
         </button>
       </div>
     </div>
   );
 }
 
-export { VideoCards };
+export { CommonCard };
