@@ -9,3 +9,5 @@ export { WatchLater } from "./watch-later/WatchLater";
 export { LikedVideos } from "./likedVideos/LikedVideos";
 export { Video } from "./video/Video";
 export { SingleVideo } from "./singleVideo/SingleVideo";
+export { PlaylistDetail } from "./playlistDetail/PlaylistDetail";
+export { PlayListModal } from "./playlistDetail/PlayListModal";

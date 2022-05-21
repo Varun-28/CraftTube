@@ -1,1 +1,6 @@
 @import url("../../App.css");
+
+div.card-text-only{
+    color: var(--dark-bg-color);
+    border: solid 2px var(--secondary-color);
+}

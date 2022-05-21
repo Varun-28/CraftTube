@@ -1,0 +1,82 @@
+.modal-container {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+    background: var(--dark-bg-color);
+    color: var(--dark-text-color);
+}
+
+.ply-modal-input {
+    width: 94%;
+    padding: 1rem .7rem;
+    font-size: 1.5rem;
+} 
+
+.ply-new-items {
+    width: 100%;
+    background-color: var(--light-bg-color);
+    color: var(--dark-bg-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px;
+}
+
+.play-list {
+    padding-left: 0;
+    list-style: none;
+    font-size: 1.5rem;
+}
+
+.play-list li {
+    padding: 0.5rem;
+    border-radius: 5px;
+    display: flex;
+    align-items: flex-end;
+    gap: 1.25rem;
+}
+
+.play-list li:hover {
+    font-weight: 600;
+    background: var(--dark-bg-color);
+    border-radius: 4px;
+}
+
+.none{
+    display: none;
+}
+
+.show{
+    display: flex;
+}
+
+.modal-btn{
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 5px;
+    background-color: var(--dark-bg-color);
+    color: var(--dark-text-color);
+}
+
+.modal-close-btn .modal-btn{
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: var(--dark-text-color);
+    color: var(--dark-bg-color);
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+}
