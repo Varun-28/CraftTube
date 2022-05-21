@@ -74,16 +74,6 @@ function Drawer() {
             <span className="text-sm">Watch Later</span>
           </NavLink>
         </li>
-        <li className="drawer-list-item">
-          <NavLink
-            className="drawer-item"
-            to="/video/profile"
-            style={navStyleHandler}
-          >
-            <i className="fas fa-user"></i>
-            <span className="text-sm">Profile</span>
-          </NavLink>
-        </li>
       </ul>
     </div>
   );
