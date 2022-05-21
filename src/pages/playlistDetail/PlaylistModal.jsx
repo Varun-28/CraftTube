@@ -9,7 +9,7 @@ function PlayListModal({ modal }) {
   const [title, setTitle] = useState("");
 
   const createClickHandler = () => {
-    if (title) {
+    if (title !== "") {
       createPlaylist(title);
       setTitle("");
     }
