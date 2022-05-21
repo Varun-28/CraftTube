@@ -16,7 +16,6 @@ import {
   removeFromLikes,
 } from "../../context/userDataContext/likes-serverCalls.js";
 import { usePlaylist } from "../../context/playlistContext/playlist-context";
-import { usePlaylistServerCall } from "../../context/playlistContext/usePlaylistServerCall";
 
 function SingleVideo() {
   const { videoId } = useParams();
@@ -29,7 +28,6 @@ function SingleVideo() {
   const token = localStorage.getItem("userToken");
   const [currentVideo, setCurrentVideo] = useState({});
   const { setModal } = usePlaylist();
-  const { deleteFromPlaylist } = usePlaylistServerCall();
 
   const { filteredVideos } = useVideo();
   const relatedVideos = filteredVideos.filter(
