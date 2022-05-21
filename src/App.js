@@ -20,7 +20,7 @@ import { PrivateAuth } from "./utils/PrivateAuth";
 import { RequiresAuth } from "./utils/RequiresAuth";
 import { useTheme } from "./context/themeContext/theme-context.jsx";
 import { usePlaylist } from "./context/playlistContext/playlist-context";
-import { PlayListModal } from "./pages/playlistDetail/PlayListModal.jsx";
+import { PlayListModal } from "./pages/playlistDetail/PlaylistModal.jsx";
 
 function App() {
   const { theme } = useTheme();
