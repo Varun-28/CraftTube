@@ -12,7 +12,7 @@ function VideoCards({
   const { theme } = useTheme();
   return (
     <div
-      className={`card card-vertical flex flex-col justify-between ${
+      className={`card card-vertical flex flex-col justify-between pb-4 ${
         theme.isLight ? "card-light" : "card-dark"
       }`}
     >
@@ -35,14 +35,6 @@ function VideoCards({
             {creator}
           </p>
         </div>
-      </div>
-      <div className="card-buttons">
-        <button className="card-btn-icon">
-          <i className="fas fa-clock"></i>
-        </button>
-        <button className="card-btn-icon">
-          <i className="fas fa-stream"></i>
-        </button>
       </div>
     </div>
   );
