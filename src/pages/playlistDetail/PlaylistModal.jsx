@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { usePlaylist } from "../../Context/playlist-context";
+import { usePlaylist } from "../../context/playlistContext/playlist-context";
 import { usePlaylistServerCall } from "../../context/playlistContext/usePlaylistServerCall";
-import "./playListModal.css";
+import "./playlistModal.css";
 
 function PlayListModal({ modal }) {
   const { playlistState, setModal } = usePlaylist();
@@ -34,20 +34,20 @@ function PlayListModal({ modal }) {
                   {" "}
                   <div className="ply-new-items flex items-end justify-end border-4">
                     <span className="mt-4">{item.title}</span>
-                    <span className="material-icons mt-2 cursor">add</span>
+                    <span className="material-icons mt-2 modal-btn">add</span>
                   </div>
                 </li>
               );
             })}
           </ul>
 
-          <div className="icon-div">
+          <div className="icon-div modal-close-btn">
             <span
               onClick={() => setModal(null)}
-              className="material-icons cursor"
+              className="material-icons modal-btn"
               id="close-modal"
             >
-              clear
+              <i className="fa-solid fa-xmark"></i>
             </span>
           </div>
           <div className="modal-footer">
@@ -60,7 +60,7 @@ function PlayListModal({ modal }) {
             />
             <button
               onClick={() => createClickHandler()}
-              className="btn btn-secondary"
+              className="btn btn-primary"
             >
               Create New
             </button>

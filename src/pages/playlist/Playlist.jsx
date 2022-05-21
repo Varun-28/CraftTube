@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Empty } from "../../components/Components";
 import { usePlaylist } from "../../context/playlistContext/playlist-context";
 import { usePlaylistServerCall } from "../../context/playlistContext/usePlaylistServerCall";
+import "./playlist.css"
 
 function Playlist() {
   const {
@@ -18,19 +19,19 @@ function Playlist() {
           <h4>Playlists</h4>
           <div className="flex flex-wrap gap-2 mb-20 mt-4">
             {playlists.map(({ _id, title, videos }) => (
-              <div key={_id} class="card card-text-only">
-                <Link to={`/video/playlist/${_id}`} class="card-head">
-                  <div class="card-texts">
-                    <h4 class="card-title">{title}</h4>
-                    <p class="card-subTitle">{videos.length} Videos</p>
+              <div key={_id} className="card card-text-only">
+                <Link to={`/video/playlist/${_id}`} className="card-head">
+                  <div className="card-texts">
+                    <h4 className="card-title">{title}</h4>
+                    <p className="card-subTitle">{videos.length} Videos</p>
                   </div>
                 </Link>
-                <div class="card-buttons">
+                <div className="card-buttons">
                   <button
-                    class="card-btn-icon"
+                    className="card-btn-icon"
                     onClick={() => deletePlaylist(_id)}
                   >
-                    <i class="fa-solid fa-trash"></i>
+                    <i className="fa-solid fa-trash"></i>
                   </button>
                 </div>
               </div>
