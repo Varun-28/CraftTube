@@ -2,17 +2,12 @@ import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "./auth-context.js";
 import { useAlert } from "react-alert";
-import { useUserData } from "../userDataContext/userData-context";
-import { getHistory } from "../userDataContext/history-serverCalls";
-import { getLikes } from "../userDataContext/likes-serverCalls";
-import { getWatchlater } from "../userDataContext/watchLater-serverCalls";
 
 function useAuthFunctions() {
   const alert = useAlert();
   const { authState, authDispatch } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const { dataDispatch } = useUserData();
 
   //login request
   const login = async (setLoading) => {
@@ -28,12 +23,8 @@ function useAuthFunctions() {
         localStorage.setItem("userToken", encodedToken);
         authDispatch({
           type: "USER-DATA",
-          payload: { encodedToken },
+          payload: data,
         });
-        authDispatch({ type: "RESET-FORM" });
-        getWatchlater(dataDispatch);
-        getHistory(dataDispatch);
-        getLikes(dataDispatch);
         navigate(location?.state?.from?.pathname || "/");
       } else if (status === 401) {
         authDispatch({ type: "ERROR", payload: "Invalid Credentials." });
@@ -73,9 +64,8 @@ function useAuthFunctions() {
         localStorage.setItem("userToken", encodedToken);
         authDispatch({
           type: "USER-DATA",
-          payload: { encodedToken },
+          payload: data,
         });
-        authDispatch({ type: "RESET-FORM" });
         navigate(location?.state?.from?.pathname || "/");
       } else {
         authDispatch({ type: "ERROR", payload: "Something Went Wrong." });

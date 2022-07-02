@@ -9,8 +9,12 @@ export function authReducerFunction(authState, action) {
     case "NAME":
       return { ...authState, name: action.payload };
     case "USER-DATA":
-      const { encodedToken } = action.payload;
-      return { ...authState, encodedToken };
+      const { foundUser, encodedToken } = action.payload;
+      return {
+        ...authState,
+        encodedToken,
+        name: `${foundUser.firstName} ${foundUser.lastName}`,
+      };
     case "RESET-DATA":
       return { ...initialAuthData };
     case "RESET-FORM":
@@ -20,8 +24,8 @@ export function authReducerFunction(authState, action) {
     case "TEST-CREDENTIALS":
       return {
         ...authState,
-        email: "adarshbalika@gmail.com",
-        password: "adarshBalika123",
+        email: "verma.varun2810@gmail.com",
+        password: "varunVerma@123",
       };
     case "LOCAL-STORAGE":
       return {

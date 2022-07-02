@@ -1,21 +1,15 @@
 import { React, useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import { Loading } from "../../components/Components";
 import { useVideo } from "../../context/videoContext/video-context";
 import { useTheme } from "../../context/themeContext/theme-context";
-import { Loading } from "../../components/Components";
+import { useUserData } from "../../context/userDataContext/userData-context";
+import { usePlaylist } from "../../context/playlistContext/playlist-context";
+import { useHistoryServerCalls } from "../../context/userDataContext/useHistoryServerCalls";
+import { useLikesServerCalls } from "../../context/userDataContext/useLikesServerCalls";
+import { useWatchLaterServerCalls } from "../../context/userDataContext/useWatchLaterServerCalls";
 import "./singleVideo.css";
 import axios from "axios";
-import { addToHistory } from "../../context/userDataContext/history-serverCalls";
-import { useUserData } from "../../context/userDataContext/userData-context";
-import {
-  addToWatchLater,
-  removeFromWatchLater,
-} from "../../context/userDataContext/watchLater-serverCalls.js";
-import {
-  addToLikes,
-  removeFromLikes,
-} from "../../context/userDataContext/likes-serverCalls.js";
-import { usePlaylist } from "../../context/playlistContext/playlist-context";
 
 function SingleVideo() {
   const { videoId } = useParams();
@@ -23,11 +17,13 @@ function SingleVideo() {
   const { theme } = useTheme();
   const {
     dataState: { watchlater, likes },
-    dataDispatch,
   } = useUserData();
   const token = localStorage.getItem("userToken");
   const [currentVideo, setCurrentVideo] = useState({});
   const { setModal } = usePlaylist();
+  const { addToHistory } = useHistoryServerCalls();
+  const { addToLikes, removeFromLikes } = useLikesServerCalls();
+  const { addToWatchLater, removeFromWatchLater } = useWatchLaterServerCalls();
 
   const { filteredVideos } = useVideo();
   const relatedVideos = filteredVideos.filter(
@@ -57,19 +53,17 @@ function SingleVideo() {
 
   useEffect(() => {
     token &&
-      addToHistory(
-        filteredVideos.find((video) => video._id === videoId),
-        dataDispatch
-      );
-  }, [filteredVideos, dataDispatch, token, videoId]);
+      addToHistory(filteredVideos.find((video) => video._id === videoId));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [videoId]);
 
   const addToPlaylistHandler = () => {
-		if (!token) {
-			navigate("/login");
-		} else {
-			setModal(filteredVideos.find((video) => video._id === videoId));
-		}
-	};
+    if (!token) {
+      navigate("/login");
+    } else {
+      setModal(filteredVideos.find((video) => video._id === videoId));
+    }
+  };
 
   return (
     <div className="single-video-page">
@@ -105,8 +99,8 @@ function SingleVideo() {
                 onClick={() => {
                   if (token) {
                     !isLiked()
-                      ? addToLikes(currentVideo, dataDispatch)
-                      : removeFromLikes(currentVideo._id, dataDispatch);
+                      ? addToLikes(currentVideo)
+                      : removeFromLikes(currentVideo._id);
                   } else {
                     navigate("/login");
                   }
@@ -123,8 +117,8 @@ function SingleVideo() {
                 onClick={() => {
                   if (token) {
                     !inWatchLater()
-                      ? addToWatchLater(currentVideo, dataDispatch)
-                      : removeFromWatchLater(currentVideo._id, dataDispatch);
+                      ? addToWatchLater(currentVideo)
+                      : removeFromWatchLater(currentVideo._id);
                   } else {
                     navigate("/login");
                   }
@@ -133,7 +127,12 @@ function SingleVideo() {
                 {inWatchLater() && <i className="fa-solid fa-trash"></i>}
                 Watch Later
               </button>
-              <button className="btn btn-video" onClick={() => addToPlaylistHandler()}>Playlist</button>
+              <button
+                className="btn btn-video"
+                onClick={() => addToPlaylistHandler()}
+              >
+                Playlist
+              </button>
             </div>
           </div>
           <p className="text-base">{currentVideo.description}</p>

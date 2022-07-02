@@ -1,25 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "../context/themeContext/theme-context";
-import { removeFromHistory } from "../context/userDataContext/history-serverCalls";
-import { removeFromLikes } from "../context/userDataContext/likes-serverCalls";
-import { removeFromWatchLater } from "../context/userDataContext/watchLater-serverCalls";
-import { useUserData } from "../context/userDataContext/userData-context";
 import { usePlaylistServerCall } from "../context/playlistContext/usePlaylistServerCall";
+import { useHistoryServerCalls } from "../context/userDataContext/useHistoryServerCalls.js";
+import { useLikesServerCalls } from "../context/userDataContext/useLikesServerCalls";
+import { useWatchLaterServerCalls } from "../context/userDataContext/useWatchLaterServerCalls";
 
 function CommonCard({ video, type, playlistId }) {
   const { _id, title, creator, creatorLogo, thumbnail } = video;
   const { theme } = useTheme();
-  const { dataDispatch } = useUserData();
   const { deleteFromPlaylist } = usePlaylistServerCall();
+  const { removeFromHistory } = useHistoryServerCalls();
+  const { removeFromLikes } = useLikesServerCalls();
+  const { removeFromWatchLater } = useWatchLaterServerCalls();
 
   const removeHandler = () => {
     if (type === "history") {
-      removeFromHistory(_id, dataDispatch);
+      removeFromHistory(_id);
     } else if (type === "like") {
-      removeFromLikes(_id, dataDispatch);
+      removeFromLikes(_id);
     } else if (type === "watchlater") {
-      removeFromWatchLater(_id, dataDispatch);
+      removeFromWatchLater(_id);
     } else if (type === "playlist") {
       deleteFromPlaylist(playlistId, _id);
     }
