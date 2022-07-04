@@ -51,8 +51,11 @@ function useHistoryServerCalls() {
       });
 
       dataDispatch({ type: "HISTORY", payload: history });
+      alert.show("Removed From History", {
+        type: "success",
+      });
     } catch (error) {
-      alert.show("Internal Server Error: Can't Remove from History", {
+      alert.show("Error: Can't Remove from History", {
         type: "error",
       });
     }
@@ -65,10 +68,12 @@ function useHistoryServerCalls() {
       } = await axios.delete("/api/user/history/all", {
         headers: { authorization: token },
       });
-
       dataDispatch({ type: "HISTORY", payload: history });
+      alert.show("Cleared History", {
+        type: "success",
+      });
     } catch (error) {
-      alert.show("Internal Server Error: Can't Clear History", {
+      alert.show("Error: Can't Clear History", {
         type: "error",
       });
     }

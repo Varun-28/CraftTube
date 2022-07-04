@@ -4,7 +4,7 @@ import { Loading, VideoCards } from "../../components/Components";
 import { useTheme } from "../../context/themeContext/theme-context";
 import "./videoListing.css";
 
-function VideoListing() {
+function VideoListing({ search }) {
   const { theme } = useTheme();
   const { videosCategory, videoCategoryHandler, filteredVideos } = useVideo();
   const videoHandler = (e) => {
@@ -12,6 +12,13 @@ function VideoListing() {
       videoCategoryHandler(e.target.value);
     }
   };
+  const searchedVideos = filteredVideos.filter(
+    (video) =>
+      video.title.toLowerCase().includes(search.toLowerCase()) ||
+      video.description.toLowerCase().includes(search.toLowerCase()) ||
+      video.creator.toLowerCase().includes(search.toLowerCase()) ||
+      video.categoryName.toLowerCase().includes(search.toLowerCase())
+  );
   return (
     <div>
       <div
@@ -98,10 +105,12 @@ function VideoListing() {
       </div>
 
       <div className="videos-wrapper flex flex-wrap mb-20 mt-4">
-        {filteredVideos.length === 0 ? (
+        {filteredVideos.length === 0 && searchedVideos.length === 0 ? (
           <Loading />
-        ) : (
-          filteredVideos.map(
+        ) : searchedVideos.length === 0 ? (
+					<p className="text-center mt-2 text-lg">No Results Found! 😵</p>
+				) : (
+          searchedVideos.map(
             ({
               _id,
               title,

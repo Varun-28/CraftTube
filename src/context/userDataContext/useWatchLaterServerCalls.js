@@ -42,7 +42,7 @@ function useWatchLaterServerCalls() {
         type: "success",
       });
     } catch (error) {
-      alert.show(`WatchLater ${error}`, {
+      alert.show("Error: Can't Add to Watch Later", {
         type: "error",
       });
     }
@@ -60,7 +60,7 @@ function useWatchLaterServerCalls() {
         type: "success",
       });
     } catch (error) {
-      alert.show(`WatchLater ${error}`, {
+      alert.show("Error: Can't Remove From Watch Later", {
         type: "error",
       });
     }

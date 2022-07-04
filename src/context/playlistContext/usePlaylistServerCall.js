@@ -2,10 +2,12 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "../authContext/auth-context";
 import { usePlaylist } from "./playlist-context";
+import { useAlert } from "react-alert";
 
 function usePlaylistServerCall() {
   const { authState } = useAuth();
   const { playlistDispatch } = usePlaylist();
+  const alert = useAlert();
 
   useEffect(() => {
     (async () => {
@@ -25,7 +27,9 @@ function usePlaylistServerCall() {
             });
           }
         } catch (error) {
-          console.log(error);
+          alert.show(`Playlist ${error}`, {
+            type: "error",
+          });
         }
       }
     })();
@@ -43,9 +47,14 @@ function usePlaylistServerCall() {
           type: "CREATE_PLAYLIST",
           payload: response.data.playlists,
         });
+        alert.show("Playlist Created", {
+          type: "success",
+        });
       }
     } catch (err) {
-      console.log(err);
+      alert.show("Error: Can't Create Playlist", {
+        type: "error",
+      });
     }
   };
 
@@ -59,9 +68,14 @@ function usePlaylistServerCall() {
           type: "DELETE_PLAYLIST",
           payload: response.data.playlists,
         });
+        alert.show("Playlist Deleted", {
+          type: "success",
+        });
       }
     } catch (err) {
-      console.log(err);
+      alert.show("Error: Can't Delete Playlist", {
+        type: "error",
+      });
     }
   };
 
@@ -77,9 +91,14 @@ function usePlaylistServerCall() {
           type: "ADD_TO_PLAYLIST",
           payload: response.data.playlist,
         });
+        alert.show("Added to Playlist", {
+          type: "success",
+        });
       }
     } catch (err) {
-      console.log(err);
+      alert.show("Error: Can't Add to Playlist", {
+        type: "error",
+      });
     }
   };
 
@@ -98,9 +117,14 @@ function usePlaylistServerCall() {
           type: "DELETE_FROM_PLAYLIST",
           payload: response.data.playlist,
         });
+        alert.show("Removed From Playlist", {
+          type: "success",
+        });
       }
     } catch (err) {
-      console.log(err);
+      alert.show("Error: Can't Delete From Playlist", {
+        type: "error",
+      });
     }
   };
 
@@ -120,7 +144,9 @@ function usePlaylistServerCall() {
         });
       }
     } catch (err) {
-      console.log(err);
+      alert.show("Error: Can't Fetch Playlist Details", {
+        type: "error",
+      });
     }
   };
 

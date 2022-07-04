@@ -42,7 +42,7 @@ function useLikesServerCalls() {
         type: "success",
       });
     } catch (error) {
-      alert.show(`Likes ${error}`, {
+      alert.show("Error: Can't Like Video", {
         type: "error",
       });
     }
@@ -60,7 +60,7 @@ function useLikesServerCalls() {
         type: "success",
       });
     } catch (error) {
-      alert.show(`Likes ${error}`, {
+      alert.show("Error: Can't Dislike Video", {
         type: "error",
       });
     }

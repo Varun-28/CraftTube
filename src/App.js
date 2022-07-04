@@ -1,4 +1,5 @@
 import "./App.css";
+import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Mockman from "mockman-js";
 import { Navbar, NotFound } from "./components/Components";
@@ -25,6 +26,7 @@ import { PlayListModal } from "./pages/playlistDetail/PlaylistModal.jsx";
 function App() {
   const { theme } = useTheme();
   const { modal } = usePlaylist();
+  const [search, setSearch] = useState("");
 
   return (
     <div
@@ -33,7 +35,7 @@ function App() {
       }`}
     >
       <div className="header">
-        <Navbar />
+        <Navbar setSearch={setSearch} />
       </div>
       <div className="main grow">
         <Routes>
@@ -55,7 +57,7 @@ function App() {
             }
           />
           <Route path="/video" element={<Video />}>
-            <Route index path="videolisting" element={<VideoListing />} />
+            <Route index path="videolisting" element={<VideoListing search={search} />} />
             <Route path="videolisting/:videoId" element={<SingleVideo />} />
             <Route
               path="watchlater"
