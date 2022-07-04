@@ -12,7 +12,7 @@ function PlaylistDetail() {
   const currentPlaylist = playlists.find((item) => item._id === playlistId);
   return (
     <div>
-      {currentPlaylist.videos.length === 0 ? (
+      {currentPlaylist === undefined ? (
         <Empty emptyText="Playlist-Detail Page" />
       ) : (
         <section className="videos-wrapper p-4">
