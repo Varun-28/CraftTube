@@ -10,17 +10,19 @@ function useLikesServerCalls() {
 
   useEffect(() => {
     (async () => {
-      try {
-        const {
-          data: { likes },
-        } = await axios.get("/api/user/likes", {
-          headers: { authorization: token },
-        });
-        dataDispatch({ type: "LIKES", payload: likes });
-      } catch (error) {
-        alert.show(`Likes ${error}`, {
-          type: "error",
-        });
+      if (token) {
+        try {
+          const {
+            data: { likes },
+          } = await axios.get("/api/user/likes", {
+            headers: { authorization: token },
+          });
+          dataDispatch({ type: "LIKES", payload: likes });
+        } catch (error) {
+          alert.show("Likes: Internal Server Error", {
+            type: "error",
+          });
+        }
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps

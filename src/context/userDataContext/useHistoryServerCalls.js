@@ -10,16 +10,20 @@ function useHistoryServerCalls() {
 
   useEffect(() => {
     (async () => {
-      try {
-        const {
-          data: { history },
-        } = await axios.get("/api/user/history", {
-          headers: { authorization: token },
-        });
+      if (token) {
+        try {
+          const {
+            data: { history },
+          } = await axios.get("/api/user/history", {
+            headers: { authorization: token },
+          });
 
-        dataDispatch({ type: "HISTORY", payload: history });
-      } catch (error) {
-        console.log(error);
+          dataDispatch({ type: "HISTORY", payload: history });
+        } catch (error) {
+          alert.show("History: Internal Server Error", {
+            type: "error",
+          });
+        }
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -27,6 +31,7 @@ function useHistoryServerCalls() {
 
   const addToHistory = async (video) => {
     try {
+      console.log(video);
       const {
         data: { history },
       } = await axios.post(

@@ -1,20 +1,19 @@
 import { useEffect } from "react";
 import axios from "axios";
-import { useAuth } from "../authContext/auth-context";
 import { usePlaylist } from "./playlist-context";
 import { useAlert } from "react-alert";
 
 function usePlaylistServerCall() {
-  const { authState } = useAuth();
   const { playlistDispatch } = usePlaylist();
   const alert = useAlert();
+  const token = localStorage.getItem("userToken");
 
   useEffect(() => {
     (async () => {
-      if (authState.encodedToken.length !== 0) {
+      if (token) {
         try {
           const response = await axios.get("/api/user/playlists", {
-            headers: { authorization: authState.encodedToken },
+            headers: { authorization: token },
           });
           playlistDispatch({
             type: "ALL_PLAYLIST_REQUEST",
@@ -27,7 +26,7 @@ function usePlaylistServerCall() {
             });
           }
         } catch (error) {
-          alert.show(`Playlist ${error}`, {
+          alert.show("Playlist: Internal Server Error", {
             type: "error",
           });
         }
@@ -40,7 +39,7 @@ function usePlaylistServerCall() {
       const response = await axios.post(
         "/api/user/playlists",
         { playlist: { title: title, description: "User Created Playlist" } },
-        { headers: { authorization: authState.encodedToken } }
+        { headers: { authorization: token } }
       );
       if (response.status === 200 || response.status === 201) {
         playlistDispatch({
@@ -61,7 +60,7 @@ function usePlaylistServerCall() {
   const deletePlaylist = async (playlistID) => {
     try {
       const response = await axios.delete(`/api/user/playlists/${playlistID}`, {
-        headers: { authorization: authState.encodedToken },
+        headers: { authorization: token },
       });
       if (response.status === 200 || response.status === 201) {
         playlistDispatch({
@@ -84,7 +83,7 @@ function usePlaylistServerCall() {
       const response = await axios.post(
         `/api/user/playlists/${playlistID}`,
         { video },
-        { headers: { authorization: authState.encodedToken } }
+        { headers: { authorization: token } }
       );
       if (response.status === 200 || response.status === 201) {
         playlistDispatch({
@@ -108,7 +107,7 @@ function usePlaylistServerCall() {
         `/api/user/playlists/${playlistID}/${videoID}`,
         {
           headers: {
-            authorization: authState.encodedToken,
+            authorization: token,
           },
         }
       );

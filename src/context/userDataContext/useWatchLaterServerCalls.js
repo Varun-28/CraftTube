@@ -10,17 +10,19 @@ function useWatchLaterServerCalls() {
 
   useEffect(() => {
     (async () => {
-      try {
-        const {
-          data: { watchlater },
-        } = await axios.get("/api/user/watchlater", {
-          headers: { authorization: token },
-        });
-        dataDispatch({ type: "WATCHLATER", payload: watchlater });
-      } catch (error) {
-        alert.show(`WatchLater ${error}`, {
-          type: "error",
-        });
+      if (token) {
+        try {
+          const {
+            data: { watchlater },
+          } = await axios.get("/api/user/watchlater", {
+            headers: { authorization: token },
+          });
+          dataDispatch({ type: "WATCHLATER", payload: watchlater });
+        } catch (error) {
+          alert.show("Watch Later: Internal Server Error", {
+            type: "error",
+          });
+        }
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps

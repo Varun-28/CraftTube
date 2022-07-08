@@ -46,7 +46,9 @@ function SingleVideo() {
           setCurrentVideo(response.data.video);
         }
       } catch (error) {
-        console.log("error");
+        alert.show("Error: Can't Fetch Video", {
+          type: "error",
+        });
       }
     })();
   }, [videoId]);
